@@ -14,10 +14,12 @@ public class BoardUtils {
 					  	+ (row%subrowsize)*subcolsize			//subrow offset
 						+ i*rowsize;							//index offset
 			for (int j = 0; j < subcolsize; ++j){
-				if (rownums[board[index]] == 1)
-					return false;
-				else 
-					rownums[board[index]] = 1;
+				if (board[index] != 0){
+					if (rownums[board[index]] == 1)
+						return false;
+					else 
+						rownums[board[index]] = 1;
+				}
 				index += 1;
 			}
 		}
@@ -34,10 +36,12 @@ public class BoardUtils {
 						+ (col%subcolsize)				//index offset
 						+ j*(colsize*subrowsize);		//subcol offset
 			for (int i = 0; i < subrowsize; ++i){
-				if (colnums[board[index]] == 1)
-					return false;
-				else 
-					colnums[board[index]] = 1;
+				if (board[index] != 0){
+					if (colnums[board[index]] == 1)
+						return false;
+					else 
+						colnums[board[index]] = 1;
+				}
 				index += subcolsize;
 			}
 		}
@@ -51,10 +55,12 @@ public class BoardUtils {
 		int[] gridnums = new int[gridsize+1];
 		int index = grid * gridsize;
 		for (int i = 0; i < gridsize; ++i){
-			if (gridnums[board[index]] == 1)
-				return false;
-			else 
-				gridnums[board[index]] = 1;
+			if (board[index] != 0){		//excludes when board has "0" (or unmarked grid)
+				if (gridnums[board[index]] == 1)
+					return false;
+				else 
+					gridnums[board[index]] = 1;
+			}
 			++index;
 		}
 		return isValid;
@@ -80,6 +86,7 @@ public class BoardUtils {
 		return true;
 	}
 	
+	/*
 	public static int[] createValidBoard(int subrowsize, int subcolsize){
 		int gridsize = subrowsize * subcolsize;		//size of each subgrid
 		int numTiles = gridsize * gridsize;			//total number of tiles
@@ -96,7 +103,43 @@ public class BoardUtils {
 		}
 		return Arrays.copyOf(board, board.length);
 	}
+	*/
+	static int iter = 0;
+	public static boolean createValidBoard(int[] board, int startpos, int subrowsize, int subcolsize){
+		System.out.println("iteration: " + iter);
+		++iter;
+		int gridsize = subrowsize * subcolsize;
+		int totalTiles = gridsize * gridsize;
+		boolean isValid = checkBoard(board, subrowsize, subcolsize);
+		if (isValid && startpos == totalTiles)
+			return true;
+		else if (!isValid && startpos == totalTiles)
+			return false;
+		
+		int startNum = randInteger(1, gridsize);
+		System.out.println("random number: " + startNum);
+		int endNum = prevIntWrap(startNum, 1, gridsize);
+		int validNum = startNum;
+		while (validNum != endNum){
+			board[startpos] = validNum;
+			if (checkBoard(board, subrowsize, subcolsize)){
+				if (createValidBoard(board, startpos+1, subrowsize, subcolsize))
+					return true;
+				board[startpos] = 0;	//backtrack
+			}
+			else {
+				board[startpos] = 0;
+			}
+			validNum = nextIntWrap(validNum, 1, gridsize);
+		}
+		return false;
+	}
 	
+	public static void test(int[] board){
+		for (int i = 0; i < board.length; ++i){
+			board[i] = i;
+		}
+	}
 	/**
 	 * Generates a random integer between the arguments
 	 * min and max, both inclusive.
@@ -125,6 +168,14 @@ public class BoardUtils {
 		return current == max ? min : current+1;
 	}
 	
+	public static int prevIntWrap(int current, int min, int max){
+		if (current > max || current < min){
+			System.err.println("Current int must be between min and max inclusive.");
+			return -1;
+		}
+		return current == min ? max : current-1;
+	}
+	
 	public static void main(String args[]){
 		/*int[] solution = new int[]{1, 2, 5, 3, 7, 8, 4, 9, 6,
 					3, 7, 8, 9, 6, 4, 1, 2, 5,
@@ -147,6 +198,16 @@ public class BoardUtils {
 					3, 6, 4, 7, 8, 1, 5, 2, 9};
 		//System.out.println(checkBoard(solution, 3, 3));
 		//System.out.println(randInteger(1,9));
-		System.out.println(nextIntWrap(1, 1, 5));
+		//System.out.println(prevIntWrap(1, 1, 5));
+		
+		int[] testSudoku = new int[81];
+		System.out.println(createValidBoard(testSudoku, 0, 3, 3));
+		//System.out.println(testSudoku);
+		System.out.println("Testing validity: " + checkBoard(testSudoku, 3, 3));
+		//test(testSudoku);
+		for (int i = 0; i < testSudoku.length; ++i){
+			System.out.printf("%d ", testSudoku[i]);
+		}
+
 	}
 }
