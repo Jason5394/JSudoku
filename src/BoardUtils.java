@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class BoardUtils {
@@ -86,28 +84,7 @@ public class BoardUtils {
 		return true;
 	}
 	
-	/*
-	public static int[] createValidBoard(int subrowsize, int subcolsize){
-		int gridsize = subrowsize * subcolsize;		//size of each subgrid
-		int numTiles = gridsize * gridsize;			//total number of tiles
-		//int[] finalboard = new int[numTiles];
-		//ArrayList<Integer> board = new ArrayList<>();
-		int[] board = new int[numTiles];
-		int arrPos = 0;
-		while (arrPos < numTiles){
-			int[] numCheck = new int[gridsize+1];		//1 index for each playable number
-			int randNum = randInteger(1, gridsize);
-			board[arrPos] = randNum;
-			++arrPos;
-			if (!checkBoard)
-		}
-		return Arrays.copyOf(board, board.length);
-	}
-	*/
-	static int iter = 0;
 	public static boolean createValidBoard(int[] board, int startpos, int subrowsize, int subcolsize){
-		System.out.println("iteration: " + iter);
-		++iter;
 		int gridsize = subrowsize * subcolsize;
 		int totalTiles = gridsize * gridsize;
 		boolean isValid = checkBoard(board, subrowsize, subcolsize);
@@ -117,7 +94,6 @@ public class BoardUtils {
 			return false;
 		
 		int startNum = randInteger(1, gridsize);
-		System.out.println("random number: " + startNum);
 		int endNum = prevIntWrap(startNum, 1, gridsize);
 		int validNum = startNum;
 		while (validNum != endNum){
@@ -135,11 +111,6 @@ public class BoardUtils {
 		return false;
 	}
 	
-	public static void test(int[] board){
-		for (int i = 0; i < board.length; ++i){
-			board[i] = i;
-		}
-	}
 	/**
 	 * Generates a random integer between the arguments
 	 * min and max, both inclusive.
@@ -176,6 +147,17 @@ public class BoardUtils {
 		return current == min ? max : current-1;
 	}
 	
+	public static void displaySudoku(int board[], int subrowsize, int subcolsize){
+		int gridsize = subrowsize * subcolsize;
+		for (int i = 0; i < gridsize; ++i){
+			System.out.print("Grid " + i + ": ");
+			for (int j = 0; j < gridsize; ++j){
+				System.out.printf("%3d", board[i*gridsize+j]);
+			}
+			System.out.println();
+		}
+	}
+	
 	public static void main(String args[]){
 		/*int[] solution = new int[]{1, 2, 5, 3, 7, 8, 4, 9, 6,
 					3, 7, 8, 9, 6, 4, 1, 2, 5,
@@ -187,27 +169,10 @@ public class BoardUtils {
 					5, 8, 7, 2, 4, 9, 6, 3, 1,
 					3, 6, 4, 7, 8, 1, 5, 2, 9};
 					*/
-		int[] solution = new int[]{1, 2, 5, 3, 7, 8, 4, 9, 6,
-					3, 7, 8, 9, 6, 4, 1, 2, 5,
-					9, 4, 6, 2, 1, 5, 8, 3, 7,
-					2, 6, 9, 8, 4, 1, 5, 3, 7,
-					4, 5, 3, 7, 9, 2, 8, 1, 6,
-					1, 7, 8, 6, 5, 3, 4, 9, 2,
-					9, 1, 2, 6, 5, 3, 7, 8, 4,
-					5, 8, 7, 2, 4, 9, 6, 3, 1,
-					3, 6, 4, 7, 8, 1, 5, 2, 9};
-		//System.out.println(checkBoard(solution, 3, 3));
-		//System.out.println(randInteger(1,9));
-		//System.out.println(prevIntWrap(1, 1, 5));
-		
 		int[] testSudoku = new int[81];
-		System.out.println(createValidBoard(testSudoku, 0, 3, 3));
-		//System.out.println(testSudoku);
+		createValidBoard(testSudoku, 0, 3, 3);
 		System.out.println("Testing validity: " + checkBoard(testSudoku, 3, 3));
-		//test(testSudoku);
-		for (int i = 0; i < testSudoku.length; ++i){
-			System.out.printf("%d ", testSudoku[i]);
-		}
+		displaySudoku(testSudoku, 3, 3);
 
 	}
 }
