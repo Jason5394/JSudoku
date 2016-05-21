@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 public class BoardUtils {
 	
@@ -57,6 +60,71 @@ public class BoardUtils {
 		return isValid;
 	}
 	
+	/**
+	 * Checks whether input board is correct given the rules of Sudoku.
+	 * @param board Array containing board numbers
+	 * @param subrowsize Size of subrows (e.g. a "normal" sudoku grid has subrowsize = 3)
+	 * @param subcolsize Size of subcolumns
+	 * @return True if board is completely valid, false otherwise
+	 */
+	public static boolean checkBoard(int[] board, int subrowsize, int subcolsize){
+		int gridsize = subrowsize * subcolsize;
+		for (int i = 0; i < gridsize; ++i){
+			if (!checkRow(board, i, subrowsize, subcolsize))
+				return false;
+			if (!checkCol(board, i, subrowsize, subcolsize))
+				return false;
+			if (!checkGrid(board, i, subrowsize, subcolsize))
+				return false;
+		}
+		return true;
+	}
+	
+	public static int[] createValidBoard(int subrowsize, int subcolsize){
+		int gridsize = subrowsize * subcolsize;		//size of each subgrid
+		int numTiles = gridsize * gridsize;			//total number of tiles
+		//int[] finalboard = new int[numTiles];
+		//ArrayList<Integer> board = new ArrayList<>();
+		int[] board = new int[numTiles];
+		int arrPos = 0;
+		while (arrPos < numTiles){
+			int[] numCheck = new int[gridsize+1];		//1 index for each playable number
+			int randNum = randInteger(1, gridsize);
+			board[arrPos] = randNum;
+			++arrPos;
+			if (!checkBoard)
+		}
+		return Arrays.copyOf(board, board.length);
+	}
+	
+	/**
+	 * Generates a random integer between the arguments
+	 * min and max, both inclusive.
+	 * @param max maximum 
+	 * @param min minimum
+	 * @return random integer between min and max inclusive
+	 */
+	public static int randInteger(int min, int max){
+		Random random = new Random();
+		return random.nextInt(max-min+1) + min;
+	}
+	
+	/**
+	 * Returns the current integer incremented, and wraps around
+	 * to min if it exceeds maximum.
+	 * @param current Current integer
+	 * @param min 
+	 * @param max 
+	 * @return current == max ? min : current+1
+	 */
+	public static int nextIntWrap(int current, int min, int max){
+		if (current > max || current < min){
+			System.err.println("Current int must be between min and max inclusive.");
+			return -1;
+		}
+		return current == max ? min : current+1;
+	}
+	
 	public static void main(String args[]){
 		/*int[] solution = new int[]{1, 2, 5, 3, 7, 8, 4, 9, 6,
 					3, 7, 8, 9, 6, 4, 1, 2, 5,
@@ -77,6 +145,8 @@ public class BoardUtils {
 					9, 1, 2, 6, 5, 3, 7, 8, 4,
 					5, 8, 7, 2, 4, 9, 6, 3, 1,
 					3, 6, 4, 7, 8, 1, 5, 2, 9};
-		System.out.println(checkGrid(solution, 8, 3, 3));
+		//System.out.println(checkBoard(solution, 3, 3));
+		//System.out.println(randInteger(1,9));
+		System.out.println(nextIntWrap(1, 1, 5));
 	}
 }
