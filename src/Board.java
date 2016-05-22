@@ -25,7 +25,7 @@ public final class Board {
 		System.out.printf("\n");
 	}
 	
-	/*
+	/**
 	 * Given a sudoku-sized array of filled numbers, returns a 
 	 * game array that removes random tiles, setting each as -1.  
 	 * The number of tiles removed depends on the difficulty parameter
@@ -50,20 +50,20 @@ public final class Board {
 		else
 			return null;
 		
-		//make array of sudoku grid indices, shuffle, and pick a number of tiles to remove (set as -1)
+		//make array of sudoku grid indices, shuffle, and pick a number of tiles to remove (set as 0)
 		indices = new ArrayList<>();
 		for (int i = 0; i < 81; ++i){
 			indices.add(i);
 		}
 		Collections.shuffle(indices);
 		for (int i = 0; i < tilesRemoved; ++i){
-			sudokuBoard[indices.get(i)] = -1;
+			sudokuBoard[indices.get(i)] = 0;
 		}
 		
 		return sudokuBoard;
 	}
 	
-	/* Generates a valid and filled sudoku board randomly and returns it. */
+	/** Generates a valid and filled sudoku board randomly and returns it. */
 	private final int[] populateSolution(){
 		/* TODO: Still need to create the algorithm to generate a 
 		 * random puzzle 
@@ -79,7 +79,8 @@ public final class Board {
 				 					3, 6, 4, 7, 8, 1, 5, 2, 9};
 		*/
 		int[] validSudoku = new int[81];
-		BoardUtils.createValidBoard(validSudoku, 0, 3, 3);
+		int[] refBoard = new int[81];
+		BoardUtils.sudokuSolver(validSudoku, refBoard, 3, 3);
 		return Arrays.copyOf(validSudoku, validSudoku.length);
 	}
 	
@@ -91,7 +92,7 @@ public final class Board {
 		return Arrays.copyOf(board, board.length);
 	}
 	
-	/* Checks if the user submitted array is the same as the solution.
+	/** Checks if the user submitted array is the same as the solution.
 	 * Returns true if the two arrays match, and false if doesn't. 
 	 */
 	public final boolean wonGame(int[] submitted){

@@ -134,21 +134,21 @@ public class MainFrame extends JFrame {
 		
 	}
 	
-	/* 
+	/**
 	 * Custom parse int method for this sudoku program.  It parses a string and returns
 	 * the integer value, if applicable.  This is used in conjunction with the user
 	 * entering a value in each tile of the sudoku puzzle.  
 	 * 
-	 * If the user does not enter anything, i.e. " ", the method returns -1 to indicate
+	 * If the user does not enter anything, i.e. " ", the method returns 0 to indicate
 	 * no entry in the tile.
 	 */
 	private int parseIntCustom(String s){
-		int parsedInt = -1;
+		int parsedInt = 0;
 		try {
 			parsedInt = Integer.parseInt(s);
 		} catch (NumberFormatException e){
 			if (s.equals(" ")){
-				parsedInt = -1;
+				parsedInt = 0;
 			}
 			else {
 				e.printStackTrace();
@@ -158,7 +158,7 @@ public class MainFrame extends JFrame {
 		return parsedInt;
 	}
 	
-	/*
+	/**
 	 * Makes the menu bar of the application, including setting
 	 * all of the action listeners
 	 */
@@ -213,7 +213,7 @@ public class MainFrame extends JFrame {
 		});
 	}
 	
-	/* 
+	/**
 	 * Creates a random new board, with specified difficulty.
 	 * Side effects will also clear labels and textfields from the 
 	 * main panel, as well as resetting any other resources.
@@ -246,7 +246,7 @@ public class MainFrame extends JFrame {
 		
 		for (int i = 0; i < entries.length; ++i){
 			int entry = entries[i];
-			if (entry == -1){
+			if (entry == 0){
 				squares[i].setTextField();
 				squares[i].revalidate();
 			} 
@@ -255,7 +255,7 @@ public class MainFrame extends JFrame {
 				squares[i].revalidate();
 			}
 			else {
-				System.out.println("Array can only contain values 1-9 and -1.");
+				System.out.println("Array can only contain values 1-9 and 0 for JTextField.");
 				break;
 			}
 		}
