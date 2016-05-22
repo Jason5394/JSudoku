@@ -19,7 +19,7 @@
   each of the difficulty modes, easy, medium, or hard will wipe away current progress and start a new game with that difficulty setting.
   
 ####Future Work
-  - Different types of grid types, e.g. 12X12, 16X16, etc.
+  - Different playable grid types, e.g. 12X12, 16X16, etc.
   - A better algorithm to remove tiles from a filled board to generate a puzzle (currently, the puzzles generated do not check for 
     uniqueness in its solution, so players may fill in a valid board but still lose the game, filling in the "wrong" solution).
   - Better GUI implementation and refining the look of the app
