@@ -78,9 +78,9 @@ public final class Board {
 				 					5, 8, 7, 2, 4, 9, 6, 3, 1,
 				 					3, 6, 4, 7, 8, 1, 5, 2, 9};
 		*/
-		int[] validSudoku = new int[81];
+		int[] validSudoku;
 		int[] refBoard = new int[81];
-		BoardUtils.sudokuSolver(validSudoku, refBoard, 3, 3);
+		validSudoku = BoardUtils.sudokuSolver(refBoard, 3, 3);
 		return Arrays.copyOf(validSudoku, validSudoku.length);
 	}
 	

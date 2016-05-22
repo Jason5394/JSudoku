@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public final class BoardUtils {
@@ -87,6 +88,42 @@ public final class BoardUtils {
 		}
 		return true;
 	}
+
+	/*
+	private static int iter = 0;
+	private static boolean createValidBoard(int[] board, int[] refboard, int startpos, int subrowsize, int subcolsize){
+		++iter;
+		int gridsize = subrowsize * subcolsize;
+		int totalTiles = gridsize * gridsize;
+		
+		boolean isValid = checkBoard(board, subrowsize, subcolsize);
+		if (isValid && startpos == totalTiles)
+			return true;
+		else if (!isValid && startpos == totalTiles)
+			return false;
+
+		int startNum = randInteger(1, gridsize);
+		int endNum = prevIntWrap(startNum, 1, gridsize);
+		int validNum = startNum;
+		
+		while (validNum != endNum){
+			board[startpos] = validNum;
+			if (checkBoard(board, subrowsize, subcolsize)){
+				if (refboard[startpos] != 0)
+					board[startpos] = refboard[startpos];
+				if (createValidBoard(board, refboard, startpos+1, subrowsize, subcolsize))
+					return true;
+				board[startpos] = 0;	//backtrack
+			}
+			else {
+				board[startpos] = 0;
+			}
+			validNum = nextIntWrap(validNum, 1, gridsize);
+		}
+		
+		return false;
+	}
+	*/
 	
 	private static int iter = 0;
 	private static boolean createValidBoard(int[] board, int[] refboard, int startpos, int subrowsize, int subcolsize){
@@ -122,18 +159,25 @@ public final class BoardUtils {
 		return false;
 	}
 	
+	
 	/**
 	 * Wrapper function for createValidBoard(), which checks if the reference
 	 * board is a valid sudoku board.
 	 */
-	public static boolean sudokuSolver(int[] board, int[] refboard, int subrowsize, int subcolsize){
+	public static int[] sudokuSolver(int[] refboard, int subrowsize, int subcolsize){
 		if (!checkBoard(refboard, subrowsize, subcolsize)){
 			System.err.println("Error: the reference sudoku board has failed the validity check.");
-			return false;
+			return null;
 		}
 		else {
+			int gridsize = subrowsize * subcolsize;
+			int totalTiles = gridsize * gridsize;
+			int[] board = new int[totalTiles];
 			int startpos = 0;
-			return (createValidBoard(board, refboard, startpos, subrowsize, subcolsize));
+			if (createValidBoard(board, refboard, startpos, subrowsize, subcolsize))
+				return Arrays.copyOf(board, board.length);
+			else
+				return null;
 		}
 		
 	}
@@ -197,9 +241,9 @@ public final class BoardUtils {
 					5, 0, 7, 2, 4, 9, 6, 3, 1,
 					3, 6, 4, 7, 8, 1, 5, 2, 0};
 					
-		int[] testSudoku = new int[81];
+		int[] testSudoku = sudokuSolver(solution, 3, 3);
 		//int[] refBoard = new int[81];
-		sudokuSolver(testSudoku, solution, 3, 3);
+		
 		System.out.println("Testing validity: " + checkBoard(testSudoku, 3, 3));
 		System.out.println("Recursions: " + iter);
 		displaySudoku(testSudoku, 3, 3);
