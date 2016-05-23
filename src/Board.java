@@ -38,8 +38,8 @@ public final class Board {
 		
 		//setting the difficulty level
 		if (difficulty == 1){
-			//tilesRemoved = 0;
-			tilesRemoved = solution.length/4;
+			tilesRemoved = 0;
+			//tilesRemoved = solution.length/4;
 		}
 		else if (difficulty == 2){
 			tilesRemoved = solution.length/2 + solution.length/5;
@@ -68,7 +68,7 @@ public final class Board {
 		/* TODO: Still need to create the algorithm to generate a 
 		 * random puzzle 
 		 */
-		/*int[] solution = new int[]{1, 2, 5, 3, 7, 8, 4, 9, 6,
+		int[] solution = new int[]{1, 2, 5, 3, 7, 8, 4, 9, 6,
 				 					3, 7, 8, 9, 6, 4, 1, 2, 5,
 				 					9, 4, 6, 2, 1, 5, 8, 3, 7,
 				 					2, 6, 9, 8, 4, 1, 5, 3, 7,
@@ -77,11 +77,12 @@ public final class Board {
 				 					9, 1, 2, 6, 5, 3, 7, 8, 4,
 				 					5, 8, 7, 2, 4, 9, 6, 3, 1,
 				 					3, 6, 4, 7, 8, 1, 5, 2, 9};
-		*/
-		int[] validSudoku;
+		
+		/*int[] validSudoku;
 		int[] refBoard = new int[81];
 		validSudoku = BoardUtils.sudokuSolver(refBoard, 3, 3);
-		return Arrays.copyOf(validSudoku, validSudoku.length);
+		return Arrays.copyOf(validSudoku, validSudoku.length);*/
+		return Arrays.copyOf(solution, solution.length);
 	}
 	
 	public final int[] getSolution(){

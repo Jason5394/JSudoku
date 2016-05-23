@@ -28,9 +28,14 @@ public class SudokuGrid extends JPanel{
 					add(subgrids[index], gbc);
 					Square subsquares[] = subgrids[index].getSquares();
 					int subindex = 0;
-					for (int k = index*9; k < (index+1)*9; ++k){
+					/*for (int k = index*9; k < (index+1)*9; ++k){
 						squares[k] = subsquares[subindex];
 						++subindex;
+					}*/
+					for (int k = 0; k < 9; ++k){
+						int gridnum = (i*3 + j);
+						int ind = (gridnum/3)*27 + (gridnum%3)*3 + (k/3)*9 + (k%3);
+						squares[ind] = subsquares[k];
 					}
 					++index;
 				}
