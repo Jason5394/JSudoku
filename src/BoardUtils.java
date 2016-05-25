@@ -390,9 +390,12 @@ public final class BoardUtils {
 	}
 	
 	
+	//Trying out test cases
 	@SuppressWarnings("unused")
 	public static void main(String args[]){
 		long begin = System.currentTimeMillis();
+		
+		//sample sudoku grid
 		int[] sol = new int[]
 				{	1,3,9,8,4,6,2,5,7,
 					8,4,5,2,7,9,6,1,3,
@@ -404,31 +407,8 @@ public final class BoardUtils {
 					4,9,3,7,5,2,1,8,6,
 					5,7,8,4,6,1,9,3,2
 				};
-		int[] test = new int[]
-				{	1,3,0,0,0,0,0,5,7,
-					8,4,5,2,0,9,6,1,3,
-					0,0,7,5,0,3,8,0,9,
-					3,5,6,1,2,4,7,9,8,
-					7,1,0,9,8,5,0,6,4,
-					9,8,0,6,3,7,5,2,1,
-					2,6,1,3,9,8,4,7,5,
-					4,0,3,7,0,2,1,8,6,
-					5,7,8,4,6,1,9,3,0
-				};
-		
-		int[] test3 = {	3, 1, 0, 5, 0, 8, 4, 0, 0,
-						5, 2, 0, 0, 0, 0, 0, 0, 0,
-						0, 8, 7, 0, 0, 0, 0, 3, 1,
-		                0, 0, 3, 0, 1, 0, 0, 8, 0,
-		                9, 0, 0, 8, 6, 3, 0, 0, 5,
-		                0, 5, 0, 0, 9, 0, 6, 0, 0,
-		                1, 3, 0, 0, 0, 0, 2, 5, 0,
-		                0, 0, 0, 0, 0, 0, 0, 7, 4,
-		                0, 0, 5, 2, 0, 6, 3, 0, 0};
-		int[] twelvebytwelve = new int[144];
+
 		int[] test2 = generateSudokuPuzzle(60, 3, 3);
-		//int[] solved = sudokuSolver(3, 4);
-		//displaySudoku(solved, 3, 4);
 		
 		long end = System.currentTimeMillis();
 		System.out.println("Time elapsed: " + Double.toString((end - begin)/1000.0));
