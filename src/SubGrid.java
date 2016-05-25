@@ -5,6 +5,11 @@ import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+/**
+ * Subgrid class which creates a height by width grid of squares
+ * @author jason
+ *
+ */
 public class SubGrid extends JPanel {
 		private static final long serialVersionUID = 5950070388609031043L;
 		private Square squares[];

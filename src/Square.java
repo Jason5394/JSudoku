@@ -9,6 +9,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
+/**
+ * Square class which acts as either an interactive tile or a
+ * static one.
+ * @author jason
+ *
+ */
 public class Square extends JPanel {
 		private static final long serialVersionUID = 2190129928773946896L;
 		private Integer displayed_digit;
@@ -32,6 +38,9 @@ public class Square extends JPanel {
 		}
 		
 		public void setLabel(int digit){
+			//Square can only have either label or textfield, not both
+			if (textfield != null)
+				return;
 			isUsable = false;
 			displayed_digit = digit;
 			label = new JLabel();
@@ -44,6 +53,9 @@ public class Square extends JPanel {
 		}
 		
 		public void setTextField(){
+			//Square can only have either label or textfield, not both
+			if (label != null) 
+				return;
 			isUsable = true;
 			textfield = new JFormattedTextField(createFormatter("#"));
 			textfield.setBorder(BorderFactory.createEmptyBorder());

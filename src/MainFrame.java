@@ -14,6 +14,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+/**
+ * The GUI class which also contains the main method for running 
+ * the application.  This handles all of the user interface 
+ * aspects of playing sudoku
+ * @author jason
+ *
+ */
 public class MainFrame extends JFrame {
 	
 	private static final long serialVersionUID = -1616367561107980353L;
@@ -66,6 +73,7 @@ public class MainFrame extends JFrame {
 		gbc.weightx = 0.20;
 		gbc.gridx = 4;
 		gbc.weightx = 0.20;
+		
 		
 		gbc.gridx = 1; gbc.gridy = 1;
 		submit = new JButton("Enter");
@@ -134,6 +142,7 @@ public class MainFrame extends JFrame {
 		
 	}
 	
+	
 	/**
 	 * Custom parse int method for this sudoku program.  It parses a string and returns
 	 * the integer value, if applicable.  This is used in conjunction with the user
@@ -158,6 +167,7 @@ public class MainFrame extends JFrame {
 		return parsedInt;
 	}
 	
+	
 	/**
 	 * Makes the menu bar of the application, including setting
 	 * all of the action listeners
@@ -180,7 +190,7 @@ public class MainFrame extends JFrame {
 		exitMenuItem = new JMenuItem("Exit");
 		menu.add(exitMenuItem);
 		
-		//setting action listeners
+		//setting action listeners for each menu item
 		easyMenuItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -213,13 +223,13 @@ public class MainFrame extends JFrame {
 		});
 	}
 	
+	
 	/**
 	 * Creates a random new board, with specified difficulty.
 	 * Side effects will also clear labels and textfields from the 
 	 * main panel, as well as resetting any other resources.
 	 */
-	private void resetBoard(int difficulty){
-		
+	private void resetBoard(int difficulty){	
 		// clear all content (Labels and TextFields) from each tile
 		if (squares != null) {
 			for (int i = 0; i < squares.length; ++i){
@@ -227,16 +237,20 @@ public class MainFrame extends JFrame {
 				squares[i].repaint();
 			}
 		}	
+		
 		// clear sudoku grid from panel
 		if (grid != null){
 			panel.remove(grid);
 			panel.repaint();
 		}
 			
+		// clear win/lose message from panel
 		if (winloseMessage != null) {
 			winloseMessage.setText("");
 			panel.repaint();
 		}
+		
+		// creating new Board to hold entries
 		board = new Board(difficulty);
 		entries = board.getBoard();
 		
@@ -244,6 +258,8 @@ public class MainFrame extends JFrame {
 		squares = grid.getSquares();
 		panel.add(grid, gbc);
 		
+		// setting textfield for user interactive tiles, and labels otherwise for 
+		// unclickable tiles
 		for (int i = 0; i < entries.length; ++i){
 			int entry = entries[i];
 			if (entry == 0){
@@ -262,6 +278,7 @@ public class MainFrame extends JFrame {
 		
 		panel.revalidate();
 	}
+	
 	
 	public static void main(String args[]){
 		new MainFrame();

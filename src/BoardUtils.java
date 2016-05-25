@@ -2,6 +2,12 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Stack;
 
+/**
+ * BoardUtils class contains the majority of the logic necessary
+ * for generating valid sudoku puzzles.  All methods are static.
+ * @author jason
+ *
+ */
 public final class BoardUtils {
 	
 	private BoardUtils(){

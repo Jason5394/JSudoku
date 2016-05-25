@@ -10,7 +10,7 @@
 
   In order to provide players with random and new game boards each session, a recursive backtracking algorithm is run everytime the 
   player starts a new game.  This generates a filled and completely valid Sudoku board.  Based on the difficulty setting, a certain
-  number of tiles are erased in a random order, which generates a random puzzle.
+  number of tiles are erased in a random order, after checking after each removal that the puzzle still contains a single unique solution.
   
 ####Game Interface
 
@@ -20,7 +20,6 @@
   
 ####Future Work
   - Different playable grid types, e.g. 12X12, 16X16, etc.
-  - A better algorithm to remove tiles from a filled board to generate a puzzle (currently, the puzzles generated do not check for 
-    uniqueness in its solution, so players may fill in a valid board but still lose the game, filling in the "wrong" solution).
+  - A better algorithm to remove tiles from a filled board to generate a puzzle (currently, the algorithm checks for solution uniqueness, but less naive algorithms are able to craft puzzles which are hard for humans to solve, not necessarily computational time.
   - Better GUI implementation and refining the look of the app
   - Saving game states in external files for users to load afterwards

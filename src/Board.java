@@ -1,10 +1,20 @@
 import java.util.Arrays;
 
-
+/**
+ * Board class, which contains the logic for populating a board,
+ * and checking for a winning condition
+ * @author jason
+ *
+ */
 public final class Board {
 	private final int[] board;
 	private final int[] solution;
 	
+	/**
+	 * Public constructor for Board.  User can set difficulty (from 1-3) to 
+	 * make different degrees of difficulty for the board.
+	 * @param difficulty
+	 */
 	public Board(int difficulty){
 		if (difficulty > 3 || difficulty < 1){
 			System.err.print("Difficulty can only be 1-3 in value.");
@@ -22,6 +32,7 @@ public final class Board {
 		BoardUtils.displaySudoku(board, 3, 3);
 		System.out.printf("\n");
 	}
+	
 	
 	/**
 	 * Given a sudoku-sized array of filled numbers, returns a 
@@ -47,19 +58,10 @@ public final class Board {
 		else
 			return null;
 		
-		//make array of sudoku grid indices, shuffle, and pick a number of tiles to remove (set as 0)
-		/*indices = new ArrayList<>();
-		for (int i = 0; i < 81; ++i){
-			indices.add(i);
-		}
-		Collections.shuffle(indices);
-		for (int i = 0; i < tilesRemoved; ++i){
-			sudokuBoard[indices.get(i)] = 0;
-		}
-		*/
 		sudokuBoard = BoardUtils.generateSudokuPuzzle(solution, tilesRemoved, 3, 3);
 		return sudokuBoard;
 	}
+	
 	
 	/** Generates a valid and filled sudoku board randomly and returns it. */
 	private final int[] populateSolution(){
@@ -69,13 +71,6 @@ public final class Board {
 		return Arrays.copyOf(validSudoku, validSudoku.length);
 	}
 	
-	public final int[] getSolution(){
-		return Arrays.copyOf(solution, solution.length);
-	}
-	
-	public final int[] getBoard(){
-		return Arrays.copyOf(board, board.length);
-	}
 	
 	/** Checks if the user submitted array is the same as the solution.
 	 * Returns true if the two arrays match, and false if doesn't. 
@@ -88,6 +83,14 @@ public final class Board {
 				return false;
 		}
 		return true;
+	}
+	
+	public final int[] getSolution(){
+		return Arrays.copyOf(solution, solution.length);
+	}
+	
+	public final int[] getBoard(){
+		return Arrays.copyOf(board, board.length);
 	}
 	
 }
