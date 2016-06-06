@@ -54,40 +54,27 @@ public class MainFrame extends JFrame {
 		this.getContentPane().add(panel);
 		panel.setBackground(Color.WHITE);
 		
-		gbc.gridy = 0;
-		gbc.weighty = 0.15;
-		gbc.gridy = 1;
-		gbc.weighty = 0.10;
-		gbc.gridy = 2;
-		gbc.weighty = 0.6;
-		gbc.gridy = 3;
-		gbc.weighty = 0.15;
-		
-		gbc.gridx = 0;
-		gbc.weightx = 0.20;
-		gbc.gridx = 1;
-		gbc.weightx = 0.20;
-		gbc.gridx = 2;
-		gbc.weightx = 0.20;
-		gbc.gridx = 3;
-		gbc.weightx = 0.20;
-		gbc.gridx = 4;
-		gbc.weightx = 0.20;
-		
+		//Setting gridbag constraints and adding Swing objects to panel
 		
 		gbc.gridx = 1; gbc.gridy = 1;
+		gbc.anchor = GridBagConstraints.WEST;
 		submit = new JButton("Enter");
 		panel.add(submit, gbc);
 		
-		gbc.gridx = 2; gbc.gridy = 1;
+		gbc.gridx = 3; gbc.gridy = 2;
+		gbc.anchor = GridBagConstraints.CENTER;
 		winloseMessage = new JLabel("");
+		winloseMessage.setMinimumSize(new Dimension(200, 50));
+		winloseMessage.setPreferredSize(new Dimension(200, 50));
+		winloseMessage.setMaximumSize(new Dimension(200, 50));
 		panel.add(winloseMessage, gbc);
 		
 		gbc.gridx = 3; gbc.gridy = 1;
+		gbc.anchor = GridBagConstraints.EAST;
 		reset = new JButton("Reset");
 		panel.add(reset, gbc);
 	
-		gbc.gridx = 1; gbc.gridy = 2;
+		gbc.gridx = 1; gbc.gridy = 3;
 		gbc.gridwidth = 3;
 		gbc.gridheight = 1;
 		resetBoard(1);
